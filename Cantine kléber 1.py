@@ -26,6 +26,21 @@ from sklearn.naive_bayes import GaussianNB
 from sklearn.svm import SVC
 import pickle
 
+#permet de voir les tableaux entiers
+
+def set_pandas_display_options() -> None:
+    """Set pandas display options."""
+    # Ref: https://stackoverflow.com/a/52432757/
+    display = pd.options.display
+
+    display.max_columns = 1000
+    display.max_rows = 1000
+    display.max_colwidth = 199
+    display.width = None
+    # display.precision = 2  # set as needed
+
+set_pandas_display_options()
+
 #import les stats
 
 url="https://docs.google.com/spreadsheets/d/e/2PACX-1vQLTW09KN8gL1XwvCP2YgicJBKsjcPaFTPFLGrhV0VYVHRoeNp3-EdSJ3zjNRyIq8CE_xZQ52wuO4me/pub?gid=1708754188&single=true&output=csv"
@@ -34,49 +49,67 @@ names = ['personne', 'jour','noteM','class']
 #création de l'array
 
 dataset=pd.read_csv(url,names=names)
-print(dataset.shape)
 
-#séparation par personne à terme, à faire pour n personne
+#séparation par personne
 data1 = dataset[dataset['personne']==1]
-print(data1.shape)
 data2 = dataset[dataset['personne']==2]
 data3 = dataset[dataset['personne']==3]
 
-#division des notes en groupe de 3 => idem 
+#division des notes en groupe de 3
 x1=int(data1.groupby('personne').size())
 x2=int(data2.groupby('personne').size())
 x3=int(data3.groupby('personne').size())
 
-# à optimiser 
-
 data4={}
 data5={}
 data6={}
+data4f={}
+data5f={}
+data6f={}
 
-#avec iloc[:i+3] => groupe de 3 directement, mais il faut changer x1 en x1-3
 
 for i in range (x1):
-    data4[i]=data1.iloc[i]  
-    print(data4[i])
+    data4[i]=data1.iloc[[i]]  
     
+
 for i in range (x2):
-    data5[i]=data2.iloc[i]
+    data5[i]=data2.iloc[[i]]
 
 for i in range (x3):
-    data6[i]=data3.iloc[i]
+    data6[i]=data3.iloc[[i]]
+
+
+d={}
+
+
+for i in range (x1-3):
+    d[i]={'ClassF':[data4[i+3].iloc[0,1]]}
+    d[i]= pd.DataFrame(d[i])
+    data4f[i]= data4[i].merge(data4[i+1], how='right', on='personne').merge(data4[i+2], how='right', on='personne')
+    data4f[i]=data4f[i].join(d[i])
+
+d={}
+
+
+for i in range (x2-3):
+    d[i]={'ClassF':[data5[i+3].iloc[0,1]]}
+    d[i]= pd.DataFrame(d[i])
+    data5f[i]= data5[i].merge(data5[i+1], how='right', on='personne').merge(data5[i+2], how='right', on='personne')
+    data5f[i]=data5f[i].join(d[i])
+
+for i in range (x3-3):
+    d[i]={'ClassF':[data6[i+3].iloc[0,1]]}
+    d[i]= pd.DataFrame(d[i])
+    data6f[i]= data6[i].merge(data6[i+1], how='right', on='personne').merge(data6[i+2], how='right', on='personne')
+    data6f[i]=data6f[i].join(d[i])
+    
 
 # namef=['repas']
 # data1f=[]
         
-# #création du data set de vérification --> ce qu'on veut avoir:
+# #création du data set de vérification
 # #       Jour Personne NoteR Class Jour Personne NoteR Class  Jour Personne NoteR Class  ClassF
-# # gp1
-# # gp2
-# # ...
-
-
-# # Class F étant la class du repas (n+1) ie: pour le gp1 , class F = 1ère class du repas gp2 (= class data4[i+1])
-# # Il faut donc passer d'un tableau en collonne à un tableau composé d'une unique ligne, et ensuite créer une nouvelle matrice qui regroupe 3 de ces tableaux
+# # Repas 1
 
 # #création du dataset de vérification
 
