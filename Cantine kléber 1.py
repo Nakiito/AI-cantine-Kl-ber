@@ -61,36 +61,36 @@ for i in range (3,x2):
 for i in range (3,x3):
     data6[i]=data3.iloc[i]
 
-namef=['repas']
-data1f=[]
+# namef=['repas']
+# data1f=[]
         
-#création du data set de vérification
-#       Jour Personne NoteR Class Jour Personne NoteR Class  Jour Personne NoteR Class  ClassF
-# Repas 1
+# #création du data set de vérification
+# #       Jour Personne NoteR Class Jour Personne NoteR Class  Jour Personne NoteR Class  ClassF
+# # Repas 1
 
-#création du dataset de vérification
+# #création du dataset de vérification
 
-array = data1f.values
-X = array[:,:-1]
-y = array[:,-1]
-X_train, X_validation, Y_train, Y_validation = train_test_split(X, y, test_size=0.20, random_state=1)
+# array = data1f.values
+# X = array[:,:-1]
+# y = array[:,-1]
+# X_train, X_validation, Y_train, Y_validation = train_test_split(X, y, test_size=0.20, random_state=1)
 
-# Spot Check Algorithms
-models = []
-models.append(('LR', LogisticRegression(solver='liblinear', multi_class='ovr')))
-models.apxpend(('LDA', LinearDiscriminantAnalysis()))
-models.append(('KNN', KNeighborsClassifier()))
-models.append(('CART', DecisionTreeClassifier()))
-models.append(('NB', GaussianNB()))
-models.append(('SVM', SVC(gamma='auto')))
+# # Spot Check Algorithms
+# models = []
+# models.append(('LR', LogisticRegression(solver='liblinear', multi_class='ovr')))
+# models.apxpend(('LDA', LinearDiscriminantAnalysis()))
+# models.append(('KNN', KNeighborsClassifier()))
+# models.append(('CART', DecisionTreeClassifier()))
+# models.append(('NB', GaussianNB()))
+# models.append(('SVM', SVC(gamma='auto')))
 
 # evaluate each model in turn
-results = []
-names = []
-for name, model in models:
-	kfold = StratifiedKFold(n_splits=5, random_state=1, shuffle=True)
-	cv_results = cross_val_score(model, X_train, Y_train, cv=kfold, scoring='accuracy')
-	results.append(cv_results)
-	names.append(name)
-	print('%s: %f (%f)' % (name, cv_results.mean(), cv_results.std()))
+# results = []
+# names = []
+# for name, model in models:
+# 	kfold = StratifiedKFold(n_splits=5, random_state=1, shuffle=True)
+# 	cv_results = cross_val_score(model, X_train, Y_train, cv=kfold, scoring='accuracy')
+# 	results.append(cv_results)
+# 	names.append(name)
+# 	print('%s: %f (%f)' % (name, cv_results.mean(), cv_results.std()))
 
