@@ -36,29 +36,33 @@ names = ['personne', 'jour','noteM','class']
 dataset=pd.read_csv(url,names=names)
 print(dataset.shape)
 
-#séparation par personne
+#séparation par personne à terme, à faire pour n personne
 data1 = dataset[dataset['personne']==1]
 print(data1.shape)
 data2 = dataset[dataset['personne']==2]
 data3 = dataset[dataset['personne']==3]
 
-#division des notes en groupe de 3
+#division des notes en groupe de 3 => idem 
 x1=int(data1.groupby('personne').size())
 x2=int(data2.groupby('personne').size())
 x3=int(data3.groupby('personne').size())
+
+# à optimiser 
 
 data4={}
 data5={}
 data6={}
 
-for i in range (3,x1):
+#avec iloc[:i+3] => groupe de 3 directement, mais il faut changer x1 en x1-3
+
+for i in range (x1):
     data4[i]=data1.iloc[i]  
     print(data4[i])
     
-for i in range (3,x2):
+for i in range (x2):
     data5[i]=data2.iloc[i]
 
-for i in range (3,x3):
+for i in range (x3):
     data6[i]=data3.iloc[i]
 
 # namef=['repas']
