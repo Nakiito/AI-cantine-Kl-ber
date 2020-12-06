@@ -64,9 +64,15 @@ for i in range (3,x3):
 # namef=['repas']
 # data1f=[]
         
-# #création du data set de vérification
+# #création du data set de vérification --> ce qu'on veut avoir:
 # #       Jour Personne NoteR Class Jour Personne NoteR Class  Jour Personne NoteR Class  ClassF
-# # Repas 1
+# # gp1
+# # gp2
+# # ...
+
+
+# # Class F étant la class du repas (n+1) ie: pour le gp1 , class F = 1ère class du repas gp2 (= class data4[i+1])
+# # Il faut donc passer d'un tableau en collonne à un tableau composé d'une unique ligne, et ensuite créer une nouvelle matrice qui regroupe 3 de ces tableaux
 
 # #création du dataset de vérification
 
