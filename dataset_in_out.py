@@ -1,5 +1,12 @@
 # -*- coding: utf-8 -*-
 """
+Created on Mon Dec  7 21:46:20 2020
+
+@author: Frédéric
+"""
+
+# -*- coding: utf-8 -*-
+"""
 Created on Sat Dec  5 22:15:18 2020
 
 @author: Frédéric
@@ -37,19 +44,24 @@ dataset=pd.read_csv(url,names=names)
 data1 = dataset[dataset['personne']==1]
 data2 = dataset[dataset['personne']==2]
 data3 = dataset[dataset['personne']==3]
+data40 = dataset[dataset['personne']==4]
+
 
 #division des notes en groupe de 3
 x1=int(data1.groupby('personne').size())
 x2=int(data2.groupby('personne').size())
 x3=int(data3.groupby('personne').size())
+x40=int(data40.groupby('personne').size())
+
 
 data4={}
 data5={}
 data6={}
+data7={}
 data4f={}
 data5f={}
 data6f={}
-
+data7f={}
 
 for i in range (x1):
     data4[i]=data1.iloc[[i]]  
@@ -61,6 +73,8 @@ for i in range (x2):
 for i in range (x3):
     data6[i]=data3.iloc[[i]]
 
+for i in range (x40):
+    data7[i]=data40.iloc[[i]]
 
 d={}
 
@@ -84,11 +98,17 @@ for i in range (x3-3):
     data6f[i]= data6[i].merge(data6[i+1], how='right', on='personne').merge(data6[i+2], how='right', on='personne')
     data6f[i]=data6f[i].join(d[i])
 
+for i in range (x40-3):
+    d[i]={'ClassF':[data7[i+3].iloc[0,1]]}
+    d[i]= pd.DataFrame(d[i])
+    data7f[i]= data7[i].merge(data7[i+1], how='right', on='personne').merge(data7[i+2], how='right', on='personne')
+    data7f[i]=data7f[i].join(d[i])
 #création des listes finales
 
 data1f=data4f[1]
 data2f=data5f[1]
 data3f=data6f[1]
+data40f=data7f[1]
 
 for i in range (1,x1-3):
     data1f=data1f.append(data4f[i])
@@ -96,10 +116,11 @@ for i in range (1,x2-3):
     data2f=data2f.append(data5f[i])
 for i in range (1,x3-3):
     data3f=data3f.append(data6f[i])
-
+for i in range (1,x40-3):
+    data40f=data40f.append(data7f[i])   
 #liste "totale"
 
-dataf=data1f.append(data2f.append(data3f))
+dataf=data1f.append(data2f.append(data3f.append(data40f)))
 
 #création des fichiers csv
 
@@ -107,3 +128,4 @@ dataf.to_csv('dataf.csv')
 data1f.to_csv('data1f.csv')
 data2f.to_csv('data2f.csv')
 data3f.to_csv('data3f.csv')
+data40f.to_csv('data4f.csv')    

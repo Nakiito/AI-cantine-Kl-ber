@@ -31,6 +31,8 @@ dataf= pd.read_csv('dataf.csv')
 data1f= pd.read_csv('data1f.csv')
 data2f= pd.read_csv('data2f.csv')
 data3f= pd.read_csv('data3f.csv')
+data4f= pd.read_csv('data4f.csv')
+
 
 # Split-out validation dataset
 
@@ -74,10 +76,10 @@ pyplot.title('Algorithm Comparison')
 pyplot.show()
 
 # Make predictions on validation dataset
-model = DecisionTreeClassifier()
-model.fit(X_train, Y_train)
-predictions = model.predict(X_validation)
-# Evaluate predictions
-print(accuracy_score(Y_validation, predictions))
-print(confusion_matrix(Y_validation, predictions))
-print(classification_report(Y_validation, predictions))
+# model = DecisionTreeClassifier()
+# model.fit(X_train, Y_train)
+# predictions = model.predict(X_validation)
+# # Evaluate predictions
+# print(accuracy_score(Y_validation, predictions))
+# print(confusion_matrix(Y_validation, predictions))
+# print(classification_report(Y_validation, predictions))
