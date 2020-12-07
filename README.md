@@ -10,3 +10,5 @@ Ce projet à pour but de créer un IA permettant de prédire la qualité du proc
 Encore WIP
 
 Ouvrir le fichier 'dataset_in_out.py' en PREMIER
+
+basé sur "https://machinelearningmastery.com/machine-learning-in-python-step-by-step/" pour l'analyse des données et les premières versions de l'IA
